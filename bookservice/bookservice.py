@@ -7,4 +7,3 @@ class BookService(StatesGroup):
     data = State()
     quality = State()
     cleanable = State()
-    last = State()
