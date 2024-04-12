@@ -17,15 +17,6 @@ async def phone(callback: types.CallbackQuery):
     await callback.message.answer(text = 'наш телефон : 0996123456789')
 
 
-@callback_router.callback_query(F.data == 'gender_M')
-async def gender_M(callback: types.CallbackQuery):
-    await callback.message.answer(text = 'Вы выбрали мужской пол')
-
-@callback_router.callback_query(F.data == 'gender_W')
-async def gender_W(callback:types.CallbackQuery):
-    await callback.message.answer(text = 'Вы выбрали женский пол')
-
-
 quality_responses = {
     'excellent': "You've chosen Excellent",
     'good': "You've chosen good",
