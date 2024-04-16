@@ -9,9 +9,9 @@ __pycache__/
 __pycache__
 # C extensions
 *.so
-requirements.txt
-db.sqlite
-db
+
+
+
 # Distribution / packaging
 .Python
 build/
@@ -174,3 +174,6 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+requirements.txt
+db.sqlite
+db/
