@@ -22,8 +22,4 @@ async def info(message: types.Message):
     await message.answer(text=text)
 
 
-@start_router.message()
-async def echo(message: types.Message):
-    text = ('Я вас не понимаю у нас есть команды \n'
-            '/start, /info')
-    await message.answer(text=text)
+

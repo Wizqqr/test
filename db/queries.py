@@ -3,10 +3,10 @@ class Queries:
         CREATE TABLE IF NOT EXISTS service (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
-            number INTEGER, 
-            date INTEGER,
-            quality INTEGER,
-            cleanable INTEGER,
+            number VARCHAR, 
+            date DATETIME,
+            quality TEXT,
+            cleanable TEXT,
             last TEXT
         )
     """
