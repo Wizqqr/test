@@ -46,6 +46,7 @@ async def finish(callback: types.CallbackQuery, state: FSMContext):
     cleanable = callback.data
     await update_finish(callback,state,cleanable)
 
+
 async def update_finish(callback: types.CallbackQuery, state:FSMContext, cleanable:str):
     await callback.answer(cleanable_responses[cleanable])
     await state.update_data({'cleanable': cleanable})

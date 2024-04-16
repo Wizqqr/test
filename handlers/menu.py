@@ -10,7 +10,6 @@ async def menu(callback: types.CallbackQuery):
     await callback.message.answer(text = 'список наших блюд', reply_markup=menu_kb())
 
 
-
 @menu_router.message(lambda message: message.text in ["первые блюда", "вторые блюда", "десерт", "напитки"])
 async def handle_menu(message: types.Message):
     if message.text == 'первые блюда':

@@ -3,7 +3,7 @@ class Queries:
         CREATE TABLE IF NOT EXISTS service (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
-            number INTEGER,
+            number INTEGER, 
             date INTEGER,
             quality INTEGER,
             cleanable INTEGER,

@@ -180,3 +180,4 @@ local_settings.py
 *.sqlite3-journal
 *.sqlite
 *.sqlite-journal
+db.sqlite
