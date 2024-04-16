@@ -174,4 +174,9 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-db.sqlite
+*.log
+local_settings.py
+*.sqlite3
+*.sqlite3-journal
+*.sqlite
+*.sqlite-journal
