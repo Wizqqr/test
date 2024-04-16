@@ -4,10 +4,10 @@ from datetime import datetime
 from keyboards.choice_kb import quality_service_kb, service_kb
 from bookservice.bookservice import BookService
 from aiogram import types, F, Router
+from bot import database
 
 
 service_router = Router()
-callback_router = Router()
 
 
 @service_router.callback_query(F.data == 'service')
@@ -21,58 +21,40 @@ async def start_service(cb: CallbackQuery, state: FSMContext):
 async def process_name(message: Message, state: FSMContext):
     await state.update_data(name=message.text)
     await state.set_state(BookService.number)
-    await message.answer(f'Could you tell me your number or instagram {message.text}?')
+    await message.answer(f'Could you tell me your number or Instagram {message.text}?')
+
 
 
 @service_router.message(BookService.number)
 async def process_number(message: Message, state: FSMContext):
     await state.update_data(number=message.text)
-    await state.set_state(BookService.data)
+    await state.set_state(BookService.date)
     await message.answer('When was the last time you entered?')
 
 
-@service_router.message(BookService.data)
-async def process_data(message: Message, state: FSMContext):
-    data = message.text
+
+@service_router.message(BookService.date)
+async def process_date(message: Message, state: FSMContext):
+    date = message.text
     try:
-        datetime.strptime(data, '%d-%m-%Y')
+        datetime.strptime(date, '%d-%m-%Y')
     except ValueError:
         await message.answer('Please write in format DD-MM-YYYY')
         return
-    await state.update_data({'date': data})
+    await state.update_data(date=date)
     await state.set_state(BookService.quality)
     await message.answer('Could you rate our food?', reply_markup=quality_service_kb())
 
 
-@service_router.message(BookService.quality)
-async def process_quality(message: Message, state: FSMContext):
-    quality_responses = {
-        'excellent': "You've chosen Excellent",
-        'good': "You've chosen good",
-        'bad': "You've chosen bad",
-        'normal': "You've chosen normal"
-    }
-
-    async def update_quality(callback: CallbackQuery, state: FSMContext, quality: str):
-        await callback.answer(quality_responses[quality])
-        await state.update_data({'quality': quality})
-        await state.set_state(BookService.cleanable)
-        await callback.message.answer(f'You chose "{quality}". Could you rate our service?', reply_markup=service_kb())
-
-    quality = message.text.lower()
-    await update_quality(message, state, quality)
-
-
-@service_router.callback_query(F.data.in_(('excellent', 'good', 'bad', 'normal')))
-async def choose_quality(callback: CallbackQuery, state: FSMContext):
-    quality = callback.data
-    await update_quality(callback, state, quality)
-
-
-@service_router.callback_query(F.data == 'finish')
-async def finish(callback: CallbackQuery, state: FSMContext):
-    await callback.message.answer('Thank you for finishing! \n'
-                                  'Would you like to write some comment?')
-
-
+@service_router.message(BookService.last)
+async def process_last_state(message: Message, state: FSMContext):
+    await state.update_data(last=message.text)
+    data = await state.get_data()
+    print(data)
+    await database.execute(
+            'INSERT INTO service (name, number, date, quality, cleanable, last) VALUES (?, ?, ?, ?, ?, ?)',
+            (data['name'], data['number'], data['date'], data['quality'], data['cleanable'], data['last'])
+        )
+    await message.answer('Thank you! Your data has been processed.')
+    await state.clear()
 

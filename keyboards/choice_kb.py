@@ -18,15 +18,11 @@ def quality_service_kb():
 def service_kb():
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [
-            InlineKeyboardButton(text='Excellent', callback_data='finish'),
-            InlineKeyboardButton(text='Good', callback_data='finish')
+          InlineKeyboardButton(text='Low', callback_data='low'),
+          InlineKeyboardButton(text='High', callback_data='high')
         ],
         [
-            InlineKeyboardButton(text='Normal', callback_data='finish'),
-            InlineKeyboardButton(text='Bad', callback_data='finish')
-        ],
-        [
-            InlineKeyboardButton(text='Poor', callback_data='finish')
+            InlineKeyboardButton(text='Medium', callback_data='medium')
         ]
     ])
     return kb
