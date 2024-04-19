@@ -6,6 +6,7 @@ from handlers.start import start_router
 from handlers.callback import callback_router
 from handlers.menu import menu_router
 from handlers.service import service_router
+from handlers.shop import shop_router
 
 
 async def on_startup(bot: Bot):
@@ -18,6 +19,7 @@ async def main():
     dp.include_router(callback_router)
     dp.include_router(menu_router)
     dp.include_router(service_router)
+    dp.include_router(shop_router)
     dp.startup.register(on_startup)
 
     await dp.start_polling(bot)

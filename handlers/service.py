@@ -56,5 +56,12 @@ async def process_last_state(message: Message, state: FSMContext):
             (data['name'], data['number'], data['date'], data['quality'], data['cleanable'], data['last'])
         )
     await message.answer('Thank you! Your data has been processed.')
+    await message.answer(f"Name: {data['name']}\n"
+                         f"Number: {data['number']}\n"
+                         f"Date: {data['date']}\n"
+                         f"Quality: {data['quality']}\n"
+                         f"Cleanable: {data['cleanable']}\n"
+                         f"Last: {data['last']}")
+
     await state.clear()
 
