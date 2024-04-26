@@ -10,12 +10,6 @@ class Database:
     async def create_tables(self) -> None:
         async with aiosqlite.connect(self.path) as db:
             await db.execute(Queries.CREATE_SERVICE_TABLE)
-            await db.execute(Queries.DROP_FOOD_TABLE)
-            await db.execute(Queries.DROP_KINDS_TABLE)
-            await db.execute(Queries.CREATE_KINDS_TABLE)
-            await db.execute(Queries.CREATE_FOOD_TABLE)
-            await db.execute(Queries.POPULATE_KINDS)
-            await db.execute(Queries.POPULATE_FOOD)
             await db.commit()
 
 
