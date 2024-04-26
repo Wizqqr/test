@@ -9,8 +9,7 @@ start_router = Router()
 @start_router.message(Command('start'))
 async def start(message: types.Message):
     text = f'привет {message.from_user.full_name}\n' \
-           f'Я бот для заказа пиццы.\n' \
-           f'Ниже вы можете выбрать раздел используя кнопки'
+           f'пройди мой опросник'
     await message.answer(text, reply_markup=start_kb())
 
 
